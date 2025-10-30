@@ -62,22 +62,22 @@ require([
     }
 
     // Label class for "Labels" action
-    const labelClass = new LabelClass({
-        symbol: {
-            type: "text", // autocasts as new TextSymbol()
-            color: "black",
-            haloColor: "white",
-            haloSize: 1.5,
-            font: {
-                family: "Noto Sans",
-                size: 10,
-            },
-        },
-        labelPlacement: "above-center",
-        labelExpressionInfo: {
-            expression: "$feature.Name || $feature.Zone || $feature.Circle",
-        },
-    });
+    // const labelClass = new LabelClass({
+    //     symbol: {
+    //         type: "text", // autocasts as new TextSymbol()
+    //         color: "black",
+    //         haloColor: "white",
+    //         haloSize: 1.5,
+    //         font: {
+    //             family: "Noto Sans",
+    //             size: 10,
+    //         },
+    //     },
+    //     labelPlacement: "above-center",
+    //     labelExpressionInfo: {
+    //         expression: "$feature.Name || $feature.Zone || $feature.Circle",
+    //     },
+    // });
 
     // Helper function to toggle labels
     function setLabels(layer) {
@@ -132,12 +132,12 @@ require([
         panelContent.appendChild(fullExtentBtn);
 
         // "Labels" button
-        const labelsBtn = document.createElement("button");
-        labelsBtn.innerText = "Labels";
-        labelsBtn.onclick = () => {
-            setLabels(layer);
-        };
-        panelContent.appendChild(labelsBtn);
+        // const labelsBtn = document.createElement("button");
+        // labelsBtn.innerText = "Labels";
+        // labelsBtn.onclick = () => {
+        //     setLabels(layer);
+        // };
+        // panelContent.appendChild(labelsBtn);
         
         // "Legend" button
         const legendBtn = document.createElement("button");
@@ -1230,12 +1230,20 @@ require([
         const layerList = new LayerList({
             view: view,
             position: "top-leading",
-            "show-collapse-button": true,
-            "show-heading": true,
-            "show-filter": true,
-            "filter-placeholder": "Filter layers",
-            listItemCreatedFunction: setLayerListActions
+
+            visibleElements: {
+            filter: true,
+            heading: true,
+            headingLevel: 3,
+            collapseButton: true
+            },
+            filterPlaceholder: "Filter layers",
+
+            listItemCreatedFunction: setLayerListActions,
+            dragEnabled: false
+
         });
         view.ui.add(layerList, "top-leading");
     });
+
 });
